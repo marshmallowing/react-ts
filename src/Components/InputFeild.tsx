@@ -8,12 +8,14 @@ interface Props {
 }
 
 const InputFeild: React.FC<Props> = ({todo, setTodo, handleAdd}) => {
-    const inputRef=useRef<HTMLInputElement>(null);
+    const inputRef=useRef<HTMLInputElement>(null); 
+    //마우스 올리면 요소 알 수 있음
 
     return ( //제출을 누를 때마다 handleAdd 함수 활성화
         <form className='input' onSubmit={(e)=>{
         handleAdd(e);
-        inputRef.current?.blur();
+        inputRef.current?.blur(); 
+        //inputRef.cuurrent 정의된 상태에서 제출 시 입력 필드 포커스 해제
         }}> 
             <input 
                 ref={inputRef}
@@ -28,5 +30,5 @@ const InputFeild: React.FC<Props> = ({todo, setTodo, handleAdd}) => {
         </form>
     )
 }
-//37:54
+
 export default InputFeild

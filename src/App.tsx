@@ -2,6 +2,7 @@ import React, {useState} from "react"
 import './App.css'
 import {Todo} from "./model"
 import InputFeild from "./Components/InputFeild"
+import TodoList from "./Components/TodoList"
 
 
 const App: React.FC = () => {
@@ -30,4 +31,3 @@ const App: React.FC = () => {
 }
 
 export default App
-//37:54
