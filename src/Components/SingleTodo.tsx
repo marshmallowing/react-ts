@@ -4,14 +4,17 @@ import {Todo} from "../models";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { MdDone } from "react-icons/md";
 import "./styles.css";
+import { Draggable } from 'react-beautiful-dnd';
+
 
 type Props = {
+    index: number;
     todo: Todo;
     todos: Todo[];
     setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 };
 //key는 props로 전달받을 필요 없음
-const SingleTodo = ( { todo, todos, setTodos }: Props)=>{
+const SingleTodo = ( { index, todo, todos, setTodos }: Props)=>{
     const [edit, setEdit] = useState<boolean>(false); 
     const [editTodo, setEditTodo] = useState<string>(todo.todo); //편집한 값으로 유지
 
@@ -47,7 +50,13 @@ const SingleTodo = ( { todo, todos, setTodos }: Props)=>{
     }, [edit]); //편집모드 시 입력 상자에 포커스하게 만드는 용도
 
     return(
-        <form className="todos__single" onSubmit={(e)=>handleEdit(e, todo.id)}>
+        <Draggable draggableId={todo.id.toString()} index={index}>
+           {
+            (provided)=>(
+                <form className="todos__single" onSubmit={(e)=>handleEdit(e, todo.id)}
+            {...provided}
+            {...provided.draggableProps}
+            ref={provided.innerRef}>
             {edit ? ( //편집 모드일 시 입력 상자 표시
                 <input 
                     ref={inputRef}
@@ -82,7 +91,10 @@ const SingleTodo = ( { todo, todos, setTodos }: Props)=>{
                     </span>
                 </div>
         </form>
+            )
+           } 
+        </Draggable>
     )
-}//57:20
+}
 
 export default SingleTodo;
